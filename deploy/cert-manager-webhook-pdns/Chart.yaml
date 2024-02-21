@@ -1,11 +1,11 @@
 apiVersion: v2
 name: cert-manager-webhook-pdns
-version: 3.1.2
+version: 1.1.0
 description: Cert Manager Webhook for PowerDNS.
 type: application
-home: https://github.com/zachomedia/cert-manager-webhook-pdns
+home: https://github.com/cyr-ius/cert-manager-webhook-pdns
 maintainers:
-  - name: Zachary Seguin
-    email: zachary@zacharyseguin.ca
-    url: https://zacharyseguin.ca
-appVersion: v2.5.0
+  - name: Cyr-ius
+    email: webmaster@ipocus.net
+    url: https://ipocus.net
+appVersion: v1.1.0
