@@ -1,44 +1,13 @@
-# Grant the webhook permission to read the ConfigMap containing the Kubernetes
-# apiserver's requestheader-ca-certificate.
-# This ConfigMap is automatically created by the Kubernetes apiserver.
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
+apiVersion: v1
+kind: ServiceAccount
 metadata:
   name: {{ include "cert-manager-webhook-pdns.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
   labels:
-    {{- include "cert-manager-webhook-pdns.labels" . | nindent 4 }}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: {{ include "cert-manager-webhook-pdns.fullname" . }}
-subjects:
-  - apiGroup: ""
-    kind: ServiceAccount
-    name: {{ include "cert-manager-webhook-pdns.serviceAccountName" . }}
-    namespace: {{ .Release.Namespace }}
----
-# Grant cert-manager permission to validate using our apiserver
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: {{ include "cert-manager-webhook-pdns.fullname" . }}
-  labels:
-    {{- include "cert-manager-webhook-pdns.labels" . | nindent 4 }}
-rules:
-  - apiGroups:
-      - ''
-    resources:
-      - 'secrets'
-    verbs:
-      - 'get'
-  - apiGroups:
-      - 'flowcontrol.apiserver.k8s.io'
-    resources:
-      - 'flowschemas'
-      - 'prioritylevelconfigurations'
-    verbs:
-      - 'watch'
-      - 'list'
+    app: {{ include "cert-manager-webhook-pdns.name" . }}
+    chart: {{ include "cert-manager-webhook-pdns.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 ---
 # Grant the webhook permission to read the ConfigMap containing the Kubernetes
 # apiserver's requestheader-ca-certificate.
@@ -49,7 +18,10 @@ metadata:
   name: {{ include "cert-manager-webhook-pdns.fullname" . }}:webhook-authentication-reader
   namespace: kube-system
   labels:
-    {{- include "cert-manager-webhook-pdns.labels" . | nindent 4 }}
+    app: {{ include "cert-manager-webhook-pdns.name" . }}
+    chart: {{ include "cert-manager-webhook-pdns.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -67,7 +39,10 @@ kind: ClusterRoleBinding
 metadata:
   name: {{ include "cert-manager-webhook-pdns.fullname" . }}:auth-delegator
   labels:
-    {{- include "cert-manager-webhook-pdns.labels" . | nindent 4 }}
+    app: {{ include "cert-manager-webhook-pdns.name" . }}
+    chart: {{ include "cert-manager-webhook-pdns.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
