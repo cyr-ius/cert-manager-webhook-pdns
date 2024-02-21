@@ -32,9 +32,9 @@ jobs:
         id: meta
         uses: crazy-max/ghaction-docker-meta@v2
         with:
-          images: zachomedia/cert-manager-webhook-pdns
+          images: cyr-ius/cert-manager-webhook-pdns
           labels: |
-            org.opencontainers.image.licenses=https://github.com/zachomedia/cert-manager-webhook-pdns/blob/${{ env.GIT_SHA }}/LICENSE
+            org.opencontainers.image.licenses=https://github.com/cyr-ius/cert-manager-webhook-pdns/blob/${{ env.GIT_SHA }}/LICENSE
       -
         name: Login to DockerHub
         uses: docker/login-action@v1
@@ -47,7 +47,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: zachomedia/cert-manager-webhook-pdns:${{ env.TAG }}
+          tags: cyr-ius/cert-manager-webhook-pdns:${{ env.TAG }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v8
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
