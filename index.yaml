@@ -2,6 +2,21 @@ apiVersion: v1
 entries:
   cert-manager-webhook-pdns:
   - apiVersion: v2
+    appVersion: v1.1.2
+    created: "2024-02-21T12:53:02.974691337Z"
+    description: Cert Manager Webhook for PowerDNS.
+    digest: 30a8371d4aa95a77d68e50ff7f21db2ba8a0a59d24dd9472949ee13def10aafd
+    home: https://github.com/cyr-ius/cert-manager-webhook-pdns
+    maintainers:
+    - email: webmaster@ipocus.net
+      name: Cyr-ius
+      url: https://ipocus.net
+    name: cert-manager-webhook-pdns
+    type: application
+    urls:
+    - https://github.com/cyr-ius/cert-manager-webhook-pdns/releases/download/cert-manager-webhook-pdns-1.1.2/cert-manager-webhook-pdns-1.1.2.tgz
+    version: 1.1.2
+  - apiVersion: v2
     appVersion: v1.1.1
     created: "2024-02-21T12:38:29.224743407Z"
     description: Cert Manager Webhook for PowerDNS.
@@ -30,4 +45,4 @@ entries:
     urls:
     - https://github.com/cyr-ius/cert-manager-webhook-pdns/releases/download/cert-manager-webhook-pdns-1.0.0/cert-manager-webhook-pdns-1.0.0.tgz
     version: 1.0.0
-generated: "2024-02-21T12:38:29.224752805Z"
+generated: "2024-02-21T12:53:02.974705143Z"
