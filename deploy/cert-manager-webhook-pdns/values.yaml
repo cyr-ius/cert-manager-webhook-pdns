@@ -13,7 +13,7 @@ certManager:
   serviceAccountName: cert-manager
 
 image:
-  repository: cyr-ius/cert-manager-webhook-pdns
+  repository: cyrius44/cert-manager-webhook-pdns
   # tag: latest
   pullPolicy: IfNotPresent
 
