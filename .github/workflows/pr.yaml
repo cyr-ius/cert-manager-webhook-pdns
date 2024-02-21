@@ -38,7 +38,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: false
-          tags: cyr-ius/cert-manager-webhook-pdns:${{ env.TAG }}
+          tags: cyrius44/cert-manager-webhook-pdns:${{ env.TAG }}
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v8
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
