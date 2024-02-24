@@ -7,7 +7,10 @@ metadata:
   name: {{ include "cert-manager-webhook-pdns.selfSignedIssuer" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    {{- include "cert-manager-webhook-pdns.labels" . | nindent 4 }}
+    app: {{ include "cert-manager-webhook-pdns.name" . }}
+    chart: {{ include "cert-manager-webhook-pdns.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
   selfSigned: {}
 
@@ -20,10 +23,13 @@ metadata:
   name: {{ include "cert-manager-webhook-pdns.rootCACertificate" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    {{- include "cert-manager-webhook-pdns.labels" . | nindent 4 }}
+    app: {{ include "cert-manager-webhook-pdns.name" . }}
+    chart: {{ include "cert-manager-webhook-pdns.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
   secretName: {{ include "cert-manager-webhook-pdns.rootCACertificate" . }}
-  duration: 43800h0m0s # 5y
+  duration: 43800h # 5y
   issuerRef:
     name: {{ include "cert-manager-webhook-pdns.selfSignedIssuer" . }}
   commonName: "ca.cert-manager-webhook-pdns.cert-manager"
@@ -38,7 +44,10 @@ metadata:
   name: {{ include "cert-manager-webhook-pdns.rootCAIssuer" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    {{- include "cert-manager-webhook-pdns.labels" . | nindent 4 }}
+    app: {{ include "cert-manager-webhook-pdns.name" . }}
+    chart: {{ include "cert-manager-webhook-pdns.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
   ca:
     secretName: {{ include "cert-manager-webhook-pdns.rootCACertificate" . }}
@@ -52,10 +61,13 @@ metadata:
   name: {{ include "cert-manager-webhook-pdns.servingCertificate" . }}
   namespace: {{ .Release.Namespace | quote }}
   labels:
-    {{- include "cert-manager-webhook-pdns.labels" . | nindent 4 }}
+    app: {{ include "cert-manager-webhook-pdns.name" . }}
+    chart: {{ include "cert-manager-webhook-pdns.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
   secretName: {{ include "cert-manager-webhook-pdns.servingCertificate" . }}
-  duration: 8760h0m0s # 1y
+  duration: 8760h # 1y
   issuerRef:
     name: {{ include "cert-manager-webhook-pdns.rootCAIssuer" . }}
   dnsNames:

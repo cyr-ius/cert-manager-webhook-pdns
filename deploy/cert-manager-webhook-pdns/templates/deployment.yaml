@@ -2,38 +2,32 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "cert-manager-webhook-pdns.fullname" . }}
+  namespace: {{ .Release.Namespace | quote }}
   labels:
-    {{- include "cert-manager-webhook-pdns.labels" . | nindent 4 }}
+    app: {{ include "cert-manager-webhook-pdns.name" . }}
+    chart: {{ include "cert-manager-webhook-pdns.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "cert-manager-webhook-pdns.selectorLabels" . | nindent 6 }}
+      app: {{ include "cert-manager-webhook-pdns.name" . }}
+      release: {{ .Release.Name }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
-        {{- include "cert-manager-webhook-pdns.labels" . | nindent 8 }}
+        app: {{ include "cert-manager-webhook-pdns.name" . }}
+        release: {{ .Release.Name }}
     spec:
-      serviceAccountName: {{ include "cert-manager-webhook-pdns.serviceAccountName" . }}
-      {{- with .Values.podSecurityContext }}
-      securityContext:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.priorityClassName }}
-      priorityClassName: {{ . | quote }}
-      {{- end }}
+      serviceAccountName: {{ include "cert-manager-webhook-pdns.fullname" . }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           args:
             - --tls-cert-file=/tls/tls.crt
             - --tls-private-key-file=/tls/tls.key
-            - --secure-port=8443
           env:
             - name: GROUP_NAME
               value: {{ .Values.groupName | quote }}
@@ -41,10 +35,6 @@ spec:
             - name: https
               containerPort: 8443
               protocol: TCP
-          {{- with .Values.containerSecurityContext }}
-          securityContext:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
           livenessProbe:
             httpGet:
               scheme: HTTPS
