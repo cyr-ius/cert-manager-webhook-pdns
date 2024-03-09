@@ -5,7 +5,7 @@
 To install with helm, run:
 
 ```bash
-$ helm repo add cert-manager-webhook-pdns https://zachomedia.github.io/cert-manager-webhook-pdns
+$ helm repo add cert-manager-webhook-pdns https://cyr-ius.github.io/cert-manager-webhook-pdns
 $ helm install cert-manager-webhook-pdns cert-manager-webhook-pdns/cert-manager-webhook-pdns
 ```
 
